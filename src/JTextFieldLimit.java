@@ -22,8 +22,9 @@ class JTextFieldLimit extends PlainDocument {
   }// end JTextFieldLimit
 
   public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
-    if (str == null)
-      return;
+	  //removed if statement because it did not return anything
+    /*if (str == null)
+      return;*/
 
     if ((getLength() + str.length()) <= limit) 
       super.insertString(offset, str, attr);
