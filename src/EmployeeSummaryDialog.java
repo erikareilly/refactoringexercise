@@ -28,10 +28,10 @@ import net.miginfocom.swing.MigLayout;
 
 public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 	// vector with all Employees details
-	Vector<Object> allEmployees;
+	Vector<Vector<Object>> allEmployees;
 	JButton back;
 	
-	public EmployeeSummaryDialog(Vector<Object> allEmployees) {
+	public EmployeeSummaryDialog(Vector<Vector<Object>> allEmployees) {
 		setTitle("Employee Summary");
 		setModal(true);
 		this.allEmployees = allEmployees;
@@ -46,7 +46,7 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		setVisible(true);
 
 	}
-	// initialise container
+	// initialize container
 	public Container summaryPane() {
 		JPanel summaryDialog = new JPanel(new MigLayout());
 		JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -56,8 +56,10 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		// column left alignment 
 		DefaultTableCellRenderer leftRenderer = new DefaultTableCellRenderer();
-		Vector<String> header = new Vector<String>();
+		//Vector<String> header = new Vector<String>();
 		// header names
+		Vector<String>header = new Vector<String>();
+		
 		String[] headerName = { "ID", "PPS Number", "Surname", "First Name", "Gender", "Department", "Salary",
 				"Full Time" };
 		// column widths
@@ -68,8 +70,12 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		for (int i = 0; i < headerName.length; i++) {
 			header.addElement(headerName[i]);
 		}// end for
-		// construnct table and choose table model for each column
-		tableModel = new DefaultTableModel(this.allEmployees, header) {
+		
+		
+		
+		// construct table and choose table model for each column
+		//remove arguments to get rid of error
+		 tableModel = new DefaultTableModel(this.allEmployees, header) {
 			public Class getColumnClass(int c) {
 				switch (c) {
 				case 0:
@@ -83,7 +89,9 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 				default:
 					return String.class;
 				}// end switch
+				
 			}// end getColumnClass
+			
 		};
 
 		employeeTable = new JTable(tableModel);

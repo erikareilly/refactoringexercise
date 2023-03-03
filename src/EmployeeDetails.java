@@ -51,6 +51,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class EmployeeDetails extends JFrame implements ActionListener, ItemListener, DocumentListener, WindowListener {
 	// decimal format for inactive currency text field
+	int returnVal;
 	private static final DecimalFormat format = new DecimalFormat("\u20ac ###,###,##0.00");
 	// decimal format for active currency text field
 	private static final DecimalFormat fieldFormat = new DecimalFormat("0.00");
@@ -149,20 +150,20 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 
 		searchPanel.setBorder(BorderFactory.createTitledBorder("Search"));
 		searchPanel.add(new JLabel("Search by ID:"), "growx, pushx");
-		searchPanel.add(searchByIdField = new JTextField(20), "width 200:200:200, growx, pushx");
+		searchPanel.add(searchByIdField = new JTextField(20), "width 200, growx, pushx");
 		searchByIdField.addActionListener(this);
 		searchByIdField.setDocument(new JTextFieldLimit(20));
 		searchPanel.add(searchId = new JButton("Go"),
-				"width 35:35:35, height 20:20:20, growx, pushx, wrap");
+				"width 35, height 20, growx, pushx, wrap");
 		searchId.addActionListener(this);
 		searchId.setToolTipText("Search Employee By ID");
 
 		searchPanel.add(new JLabel("Search by Surname:"), "growx, pushx");
-		searchPanel.add(searchBySurnameField = new JTextField(20), "width 200:200:200, growx, pushx");
+		searchPanel.add(searchBySurnameField = new JTextField(20), "width 200, growx, pushx");
 		searchBySurnameField.addActionListener(this);
 		searchBySurnameField.setDocument(new JTextFieldLimit(20));
 		searchPanel.add(
-				searchSurname = new JButton("Go"),"width 35:35:35, height 20:20:20, growx, pushx, wrap");
+				searchSurname = new JButton("Go"),"width 35, height 20, growx, pushx, wrap");
 		searchSurname.addActionListener(this);
 		searchSurname.setToolTipText("Search Employee By Surname");
 
@@ -434,6 +435,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	// search Employee by ID
 	public void searchEmployeeById() {
 		boolean found = false;
+		
 
 		try {// try to read correct correct from input
 				// if any active Employee record search for ID else do nothing
@@ -479,6 +481,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	// search Employee by surname
 	public void searchEmployeeBySurname() {
 		boolean found = false;
+		
 		// if any active Employee record search for ID else do nothing
 		if (isSomeoneToDisplay()) {
 			firstRecord();// look for first record
@@ -557,7 +560,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	private void deleteRecord() {
 		if (isSomeoneToDisplay()) {// if any active record in file display
 									// message and delete record
-			int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to delete record?", "Delete",
+			 returnVal = JOptionPane.showOptionDialog(frame, "Do you want to delete record?", "Delete",
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 			// if answer yes delete (make inactive - empty) record
 			if (returnVal == JOptionPane.YES_OPTION) {
@@ -576,9 +579,9 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	}// end deleteDecord
 
 	// create vector of vectors with all Employee details
-	private Vector<Object> getAllEmloyees() {
+	private Vector<Vector<Object>> getAllEmloyees() {
 		// vector of Employee objects
-		Vector<Object> allEmployee = new Vector<Object>();
+		Vector<Vector<Object>> allEmployee = new Vector<Vector<Object>>();
 		Vector<Object> empDetails;// vector of each employee details
 		long byteStart = currentByteStart;
 		int firstId;
@@ -794,6 +797,10 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 	// open file
 	private void openFile() {
 		final JFileChooser fc = new JFileChooser();
+		//declared as localVariable 
+		//was used for JOptionPane.showOptionDialog(".....")
+		//and used for returnVal = fc.showOpenDialog(EmployeeDetails.this)
+		//int returnVal;
 		fc.setDialogTitle("Open");
 		// display files in File Chooser only with extension .dat
 		fc.setFileFilter(datfilter);
@@ -801,7 +808,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 		// if old file is not empty or changes has been made, offer user to save
 		// old file
 		if (file.length() != 0 || change) {
-			int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to save changes?", "Save",
+			returnVal = JOptionPane.showOptionDialog(frame, "Do you want to save changes?", "Save",
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 			// if user wants to save file, save it
 			if (returnVal == JOptionPane.YES_OPTION) {
@@ -809,7 +816,7 @@ public class EmployeeDetails extends JFrame implements ActionListener, ItemListe
 			} // end if
 		} // end if
 
-		int returnVal = fc.showOpenDialog(EmployeeDetails.this);
+		 returnVal = fc.showOpenDialog(EmployeeDetails.this);
 		// if file been chosen, open it
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			newFile = fc.getSelectedFile();
