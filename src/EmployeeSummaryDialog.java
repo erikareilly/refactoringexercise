@@ -74,7 +74,6 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		
 		
 		// construct table and choose table model for each column
-		//remove arguments to get rid of error
 		 tableModel = new DefaultTableModel(this.allEmployees, header) {
 			public Class getColumnClass(int c) {
 				switch (c) {
