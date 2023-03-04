@@ -165,6 +165,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 			fullTimeCombo.setBackground(new Color(255, 150, 150));
 			valid = false;
 		}// end if
+		
 		return valid;
 	}// end checkInput
 

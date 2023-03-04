@@ -72,6 +72,7 @@ public class RandomAccessEmployeeRecord extends Employee
 
       if ( name != null ) 
          buffer = new StringBuffer( name );
+      //possibly could get rid of else statement
       else 
          buffer = new StringBuffer( 20 );
 
