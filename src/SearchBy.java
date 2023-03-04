@@ -15,7 +15,7 @@ import javax.swing.border.EtchedBorder;
 
 //class to shorten searchByIdDialog and searchBySurnameDialog as both classes are similar
 public abstract class SearchBy extends JDialog  implements ActionListener {
-	EmployeeDetails parent;
+	EmployeeDetails employeeDetails;
 	JButton search, cancel;
 	JTextField searchField;
 	
@@ -34,9 +34,9 @@ public abstract class SearchBy extends JDialog  implements ActionListener {
 		textPanel.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 		textPanel.add(searchLabel = new JLabel("Enter ID:"));
 		textPanel.add(searchLabel = new JLabel("Enter Surname:"));
-		searchLabel.setFont(this.parent.font1);
+		searchLabel.setFont(this.employeeDetails.font1);
 		textPanel.add(searchField = new JTextField(20));
-		searchField.setFont(this.parent.font1);
+		searchField.setFont(this.employeeDetails.font1);
 		searchField.setDocument(new JTextFieldLimit(20));
 
 		buttonPanel.add(search = new JButton("Search"));
@@ -56,11 +56,11 @@ public abstract class SearchBy extends JDialog  implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// if option search, search for Employee
 		if(e.getSource() == search){
-			this.parent.searchBySurnameField.setText(searchField.getText());
-			this.parent.searchByIdField.setText(searchField.getText());
+			this.employeeDetails.searchBySurnameField.setText(searchField.getText());
+			this.employeeDetails.searchByIdField.setText(searchField.getText());
 			// search Employee by surname
-			this.parent.searchEmployeeBySurname();
-			this.parent.searchEmployeeById();
+			this.employeeDetails.searchEmployeeBySurname();
+			this.employeeDetails.searchEmployeeById();
 			dispose();// dispose dialog
 		}// end if
 		// else dispose dialog
